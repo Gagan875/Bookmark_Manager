@@ -25,5 +25,8 @@ create policy "Users can delete their own bookmarks"
   on bookmarks for delete
   using (auth.uid() = user_id);
 
+-- Enable REPLICA IDENTITY FULL (required for INSERT events in Realtime)
+alter table bookmarks replica identity full;
+
 -- Enable Realtime for live updates
 alter publication supabase_realtime add table bookmarks;
